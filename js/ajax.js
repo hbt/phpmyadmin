@@ -809,3 +809,20 @@ $(document).ajaxError(function(event, request, settings){
         AJAX.active = false;
     }
 });
+
+
+function searchBy(el, table, column)
+{
+  var value = el.value;
+
+  var key = window.event.keyCode;
+  if(key == 13)
+  {
+    var link = document.getElementById('mylink')
+    var sql = 'select * from '+ table + ' where ' + column + ' like \'' + value + '\''
+    link.setAttribute('href', link.getAttribute('href') + sql);
+
+    link.click()
+  }
+
+}

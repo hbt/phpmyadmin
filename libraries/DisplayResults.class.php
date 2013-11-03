@@ -988,6 +988,59 @@ class PMA_DisplayResults
     } // end of the '_getAdditionalFieldsForTableNavigation()' function
 
 
+    private function _getQuickLookup()
+    {
+
+        // -- generate URL  and add anchor
+
+        $url = PMA_generate_common_url($this->_property_array['db'], $this->_property_array['table']);
+        $url = 'http://localhost:8085/import.php?' . $url . '&sql_query=';
+
+
+        // add anchor
+        // Note(hbt) using anchor due to magic ajax bs
+        $ret = '<br/><br/>';
+        $ret .= "<a style=\"display:none\" id=\"mylink\" href=\"$url\"> search </a>";
+
+
+        // -- get all column names
+        $config = $GLOBALS['cfg'];
+
+        $con = mysqli_connect("localhost", $config['Servers'][1]['user'], $config['Servers'][1]['password'], 'information_schema');
+        if(mysqli_connect_errno())
+        {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+
+        // get column names
+        $db        = $this->_property_array['db'];
+        $tableName = $this->_property_array['table'];
+        $q         = "select COLUMN_NAME from information_schema.COLUMNS where
+TABLE_SCHEMA = '" . $db . "' and TABLE_NAME = '" . $tableName . "'";
+        $result    = mysqli_query($con, $q);
+
+        // build array
+        $columns = array();
+        while($row = mysqli_fetch_array($result))
+        {
+            $columns[] = $row['COLUMN_NAME'];
+        }
+
+        mysqli_close($con);
+
+
+        // -- build text fields from columns
+
+        foreach($columns as $column)
+        {
+
+            $ret .= $column;
+            $ret .= '<input  type="text" onkeydown="searchBy(this, \'' . $tableName . '\', \'' . $column . '\')"/>';
+        }
+
+        return $ret;
+    }
+
     /**
      * Get the headers of the results table
      *
@@ -1047,6 +1100,8 @@ class PMA_DisplayResults
             $table_headers_html .= $drop_down_html;
 
         }
+
+        $table_headers_html .= $this->_getQuickLookup();
 
         // Output data needed for grid editing
         $table_headers_html .= '<input id="save_cells_at_once" type="hidden" value="'
