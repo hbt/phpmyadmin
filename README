@@ -17,7 +17,7 @@ Install
 Features and scripts:
 
 - Clean UI + simple listing with no extra frames
-- build relations using script instead of using "relation view"
+- build relations using script instead of using "relation view" to display linkable foreign keys in myisam engine custom-scripts/build-relations.php
 - quick lookup without having to access search field
 - well configured for local use
 

@@ -5,6 +5,12 @@
  * designed for frameworks where the sql is generated through a schema file and myisam / innodb can be turned on/off
  */
 
+/**
+ *" php build-relations.php databaseName directory \n\n
+    e.g \n\
+    php build-relations.php ssi_ctms  /home/hassen/workspace/ssi_ctms/data/sql ";
+ */
+
 include(dirname(__FILE__) . '/../config.inc.php');
 $config = $cfg;
 
