@@ -31,7 +31,7 @@ $cfg['Servers'][$i]['history'] = "pma__history";
 $cfg['Servers'][$i]['designer_coords'] = "pma__designer_coords";
 $cfg['Servers'][$i]['MaxTableUiprefs'] = 1000;
 
-$cfg['Servers'][$i]['hide_db'] = 'performance_schema|mysql';
+$cfg['Servers'][$i]['hide_db'] = 'performance_schemaf|mysql';
 $cfg['MaxRows'] = 100;
 
 /* End of servers configuration */

@@ -23,4 +23,4 @@ Features and scripts:
 
 
 
-
+*Reverted to phpmyadmin3 because ajax / history navigation is not well implemented in phpmyadmin4*
